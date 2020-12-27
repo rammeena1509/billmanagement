@@ -1,0 +1,103 @@
+<section id="content">
+        
+  <!--breadcrumbs start-->
+  <div id="breadcrumbs-wrapper">
+      <!-- Search for small screen -->
+      <div class="header-search-wrapper grey hide-on-large-only">
+          <i class="mdi-action-search active"></i>
+          <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+      </div>
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m12 l12">
+          <h5 class="breadcrumbs-title">Add Bill</h5>
+          <ol class="breadcrumbs">
+              <li><a routerLink="/dashboard">Dashboard</a></li>
+              <li><a routerLink="/bill-entry">Bills</a></li>
+              <li class="active">Add Bill</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--breadcrumbs end-->
+  
+
+  <!--start container-->
+  <div class="container">
+    <div class="section">
+      <div class="row">
+        <div class="col s12 m12 l12">
+          <div class="card-panel">
+            <div class="row">
+              <div class="col s12">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="mdi-action-question-answer prefix"></i>
+                    <input id="name4" type="text" class="validate" [(ngModel)]="remark">
+                    <label for="first_name">Remark</label>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                      <i class="mdi-editor-insert-invitation prefix"></i>
+                      <input type="date" class="datepicker">
+                      <label>Payment Date</label>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="mdi-editor-attach-money prefix"></i>
+                    <input id="email4" type="email" class="validate" [(ngModel)]="amount">
+                    <label for="email">Amount</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="mdi-social-group-add prefix"></i>
+                      <select multiple id="group">
+                        <option value="" disabled selected>Choose your group member</option>
+                        <option *ngFor="let d of users;let i=index;" [value]="d.usercode">{{d.name}}</option>
+                      </select>
+                    <label>Group Member</label>
+                  </div> 
+                </div>
+                <div class="row" style="margin: 20px 0px;">
+                  <div class="col l12">
+                      <div class="switch" style="text-transform: uppercase;font-weight: 600;margin-left: -15px;">
+                        Change Payee : 
+                        <label>
+                          No
+                          <input type="checkbox" [(ngModel)]="changePayee">
+                          <span class="lever"></span> Yes
+                        </label>
+                      </div>
+                  </div>
+                </div>
+                <div class="row" [class.hidden]="changePayee==false">
+                  <div class="input-field col s12">
+                    <i class="mdi-social-person prefix"></i>
+                    <select id="payee">
+                      <option value="" disabled selected>Choose Payee</option>
+                      <option *ngFor="let d of users;let i=index;" [value]="d.usercode">{{d.name}}</option>
+                    </select>
+                    <label>Paid By</label>
+                  </div>                        
+                  
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <button class="btn cyan waves-effect waves-light right" type="button" (click)="addBill()">Submit
+                      <i class="mdi-content-send right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end container-->
+</section>

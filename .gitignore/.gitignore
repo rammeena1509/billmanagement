@@ -1,9 +1,0 @@
-
-Node/.env
-.env
-./Node/node_modules/
-./Node/package-lock/
-./Native
-./Angular/node_modules
-
-Angular/node_modules

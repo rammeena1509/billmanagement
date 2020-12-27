@@ -1,0 +1,176 @@
+<section id="content">
+        
+  <!--breadcrumbs start-->
+  <div id="breadcrumbs-wrapper">
+      <!-- Search for small screen -->
+      <div class="header-search-wrapper grey hide-on-large-only">
+          <i class="mdi-action-search active"></i>
+          <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+      </div>
+    <div class="container">
+      <div class="row">
+        <div class="col s2 m2 l2">
+          <h5 class="breadcrumbs-title">Dashboard</h5>
+          <div class="divider"></div>
+        </div>
+        <div class="col s3 m3 l3">
+            <select multiple id="group">
+              <option value="" disabled selected>Choose your group member</option>
+              <option *ngFor="let d of users;let i=index;" [value]="d.usercode">{{d.name}}</option>
+            </select>
+        </div>
+        <div class="col s3 m3 l3">
+            <select id="payee" class="form-control">
+              <option value="" disabled selected>Choose Payee</option>
+              <option *ngFor="let d of users;let i=index;" [value]="d.usercode">{{d.name}}</option>
+            </select>
+        </div>
+        <div class="col s2 m2 l2">
+          <select id="month" class="form-control">
+            <option value="" disabled selected>Choose Month</option>
+            <option *ngFor="let d of monthArray;let i=index;" [value]="d.id">{{d.name}} ({{d.year}})</option>
+          </select>
+        </div>
+        <div class="col s2 m2 l2" style="text-align: center;">
+          <button type="button" class="btn btn-info" style="margin-top: 10px;" (click)="getDashboardData()">
+            Filter
+          </button>
+          <div class="divider"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--breadcrumbs end-->
+  
+
+  <!--start container-->
+  <div class="container">
+    <div class="section">
+      <!--card stats start-->
+      <div id="card-stats">
+        <div class="row">
+            <div class="col s12 m6 l3">
+                <div class="card">
+                    <div class="card-content  green white-text">
+                        <p class="card-stats-title">Total Spend</p>
+                        <h4 class="card-stats-number">{{payment.total}}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l3">
+                <div class="card">
+                    <div class="card-content pink lighten-1 white-text">
+                        <p class="card-stats-title">Amount To Pay</p>
+                        <h4 class="card-stats-number">{{payment.pay}}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l3">
+                <div class="card">
+                    <div class="card-content blue-grey white-text">
+                        <p class="card-stats-title">Amount To Receive</p>
+                        <h4 class="card-stats-number">{{payment.receive}}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l3">
+                <div class="card">
+                    <div class="card-content purple white-text">
+                        <p class="card-stats-title">Net Spend</p>
+                        <h4 class="card-stats-number">{{payment.net}}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col l3 m4 s6" *ngFor="let d of calculatedData;let i=index">
+          <div class="card custom-c">
+            <div class="card-header">
+                <div class="card-title">
+                    <h4>{{d?.user?.name}}</h4>
+                    <!-- <code>{{d?.user?.usercode}}</code> -->
+                </div>
+            </div>
+            <div class="card-content">
+                <ul>
+                  <li><p class="grey-text darken-1">Credit Amount <span class="bg-success">{{d?.amount?.receive}}</span></p></li>
+                  <li><p class="grey-text darken-1">Payable Amount <span class="bg-danger">{{d?.amount?.pay}}</span></p></li>
+                  <li><p class="grey-text darken-1">Net Amount<b style="font-size: 14px;">({{d?.amount?.receive-d?.amount?.pay>0?"credit":"pay"}})</b> <span class="bg-info">{{makePositive(d?.amount?.receive-d?.amount?.pay) }}</span></p></li>
+                </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--card stats end-->
+      <div class="row" *ngFor="let d of distributionData;let i=index;">
+        <div class="col l6" *ngFor="let dd of d.data;let j = index;">
+          <div class="card custom-d">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="d-cont">
+                      <div class="dc-item">
+                          <h2>Members</h2>
+                          <h6>{{d.memberCount}}</h6>
+                      </div>
+                      <div class="dc-item">
+                          <h2>Total Amount</h2>
+                          <h6>{{dd.totalAmount}}</h6>
+                      </div>
+                      <div class="dc-item">
+                          <h2>Divided</h2>
+                          <h6>{{dd.divide}}</h6>
+                      </div>
+                    </div>
+                    <div class="d-cont">
+                      <div class="dc-item">
+                          <h2>You Paid</h2>
+                          <h6 [innerHTML]="setDataValue(dd,'paid')">0</h6>
+                      </div>
+                      <div class="dc-item">
+                          <h2>Adjustment</h2>
+                          <h6 [innerHTML]="setDataValue(dd,'adjust')">0</h6>
+                      </div>
+                      <div class="dc-item">
+                          <h2>Type</h2>
+                          <h6 [innerHTML]="setDataValue(dd,'type')">NA</h6>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-content">
+              <div *ngFor="let elem of dd.participant;let k=index;">
+                <div *ngIf="elem.usercode==usercode">
+                  <div class="noms" *ngFor="let nom of elem.nominee">
+                    <div>{{nom.name}} </div>
+                    <div>{{nom.amount}} </div>
+                    <div>{{nom.type}} </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span>Members: </span>
+              <div [innerHTML]="setParticipant(dd.participant)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Floating Action Button -->
+      <div class="fixed-action-btn" style="bottom: 50px; right: 19px;display: none;">
+          <a class="btn-floating btn-large">
+            <i class="mdi-action-stars"></i>
+          </a>
+          <ul>
+            <li><a href="css-helpers.html" class="btn-floating red"><i class="large mdi-communication-live-help"></i></a></li>
+            <li><a href="app-widget.html" class="btn-floating yellow darken-1"><i class="large mdi-device-now-widgets"></i></a></li>
+            <li><a href="app-calendar.html" class="btn-floating green"><i class="large mdi-editor-insert-invitation"></i></a></li>
+            <li><a href="app-email.html" class="btn-floating blue"><i class="large mdi-communication-email"></i></a></li>
+          </ul>
+      </div>
+      <!-- Floating Action Button -->
+  </div>
+  <!--end container-->
+</section>

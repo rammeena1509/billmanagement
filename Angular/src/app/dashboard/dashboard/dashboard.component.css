@@ -1,0 +1,130 @@
+.card-stats-title{
+    font-size: 1.6rem;
+    text-transform: uppercase;
+}
+
+.custom-c .card-header{
+    background: #04b1c7;
+}
+
+.custom-c .card-title{
+    padding: 2px 10px;
+}
+
+.custom-c .card-title h4{
+    color: #fff;
+    font-size: 22px;
+}
+
+.custom-c .card-content{
+    padding: 5px 10px;
+}
+
+.custom-c .card-content ul li{
+    font-size: 20px;
+    border-bottom: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #eaeaea;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.custom-c .card-content ul li span{
+    float: right;
+    color: #fff;
+    border-radius: 2px;
+    width: 30%;
+    text-align: center;
+    font-size: 18px;
+}
+
+.bg-success{
+    background: #40a740;
+}
+
+.bg-danger{
+    background: #e82525;
+}
+
+.bg-info{
+    background: #3f90e4;
+}
+
+.custom-d .card-header{
+    background: #607d8b;
+}
+
+.custom-d .card-header .card-title{
+    padding: 2px 10px;
+}
+
+.custom-d .card-footer{
+    background: #607d8b;
+    padding: 15px 5px;
+    color: #eaeaea;
+}
+
+.custom-d .card-content .noms{
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.custom-d .card-content .noms div:nth-child(1){
+    font-size: 18px;
+    color: #737373;
+    font-weight: 600;
+    width: 40%;
+}
+
+.custom-d .card-content .noms div:nth-child(2){
+    background: #ff4081;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 10px;
+    width: 30%;
+}
+
+.custom-d .card-content .noms div:nth-child(3){
+    color: #fff;
+    background: #04b1c7;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 10px;
+    width: 30%;
+}
+
+.custom-d .d-cont{
+    display: flex;
+}
+
+.custom-d .d-cont:nth-child(1){
+    border-bottom: 2px solid #eaeaea;
+}
+
+.custom-d .d-cont .dc-item{
+    width: 33%;
+    text-align: center;
+}
+
+.custom-d .d-cont .dc-item h2{
+    font-size: 20px;
+    line-height: 110%;
+    margin: .78rem 0 .424rem 0;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.custom-d .d-cont .dc-item h6{
+    font-size: 16px;
+    color: #fff;
+}

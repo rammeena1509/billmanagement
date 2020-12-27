@@ -1,0 +1,28 @@
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+  <div id="loader"></div>        
+  <div class="loader-section section-left"></div>
+  <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<app-header *ngIf="checkLogin()==true"></app-header>
+<router-outlet *ngIf="checkLogin()==false"></router-outlet>
+<!-- START MAIN -->
+<div id="main" *ngIf="checkLogin()==true">
+  <!-- START WRAPPER -->
+  <div class="wrapper">
+
+    <!-- START LEFT SIDEBAR NAV-->
+    <app-sidebar></app-sidebar>
+    <!-- END LEFT SIDEBAR NAV-->
+
+    <!-- START CONTENT -->
+    <router-outlet></router-outlet>
+    <!-- END CONTENT -->
+
+  </div>
+  <!-- END WRAPPER -->
+
+</div>
+<!-- END MAIN -->
+<app-footer *ngIf="checkLogin()==true"></app-footer>

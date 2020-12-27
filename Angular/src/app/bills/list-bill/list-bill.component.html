@@ -1,0 +1,105 @@
+<section id="content">
+        
+  <!--breadcrumbs start-->
+  <div id="breadcrumbs-wrapper">
+      <!-- Search for small screen -->
+      <div class="header-search-wrapper grey hide-on-large-only">
+          <i class="mdi-action-search active"></i>
+          <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+      </div>
+    <div class="container">
+      <div class="row">
+        <div class="col s2 m2 l2">
+          <h5 class="breadcrumbs-title">Bill List</h5>
+          <ol class="breadcrumbs">
+              <li><a routerLink="/dashboard">Dashboard</a></li>
+              <li class="active">Bill List</li>
+          </ol>
+        </div>
+        <div class="col s3 m3 l3">
+            <select multiple id="group">
+              <option value="" disabled selected>Choose your group member</option>
+              <option *ngFor="let d of users;let i=index;" [value]="d.usercode">{{d.name}}</option>
+            </select>
+        </div>
+        <div class="col s3 m3 l3">
+            <select id="payee" class="form-control">
+              <option value="" disabled selected>Choose Payee</option>
+              <option *ngFor="let d of users;let i=index;" [value]="d.usercode">{{d.name}}</option>
+            </select>
+        </div>
+        <div class="col s2 m2 l2">
+          <select id="month" class="form-control">
+            <option value="" disabled selected>Choose Month</option>
+            <option *ngFor="let d of monthArray;let i=index;" [value]="d.id">{{d.name}} ({{d.year}})</option>
+          </select>
+        </div>
+        <div class="col s2 m2 l2" style="text-align: center;">
+          <button type="button" class="btn btn-info" style="margin-top: 10px;" (click)="getPage(1)">
+            Filter
+          </button>
+          <div class="divider"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--breadcrumbs end-->
+  
+
+  <!--start container-->
+  <div class="container">
+    <div class="section">
+      <div id="bordered-table">
+        <div class="row">
+          <div class="col s12 m12 l12">
+            <table class="bordered">
+              <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Paid BY</th>
+                  <th>Amount</th>
+                  <th>Comment</th>
+                  <th>Date</th>
+                  <th>Members</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let d of bills;let i=index;">
+                  <td>{{(currentPage-1)*limit+i+1}}</td>
+                  <td>{{d?.paidBy?.name}}</td>
+                  <td>INR {{d.amount}}</td>
+                  <td>{{d.comment}}</td>
+                  <td>{{d.paidOn | date:"d MMM, yyyy"}}</td>
+                  <td class="pt">
+                    <div *ngFor="let dd of d.participant"><span>{{dd.name}}</span></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="row">
+              <div class="col m2">
+                <select class="form-control" [(ngModel)]="limit" style="display: block;" (change)="getPage(1)">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                </select>
+              </div>
+              <div class="col m10">
+                <ul class="pagination" style="float: right;" *ngIf="totalPages>1">
+                  <li [ngClass]="{'waves-effect':pageNo>1,'disabled':pageNo==1}" (click)="pageNo==1?false:getPage('previous')"><a href="javascript:void(0);"><i class="mdi-navigation-chevron-left"></i></a></li>
+                  <li [ngClass]="{'waves-effect':currentPage!=pageNo,'active':currentPage==pageNo}" (click)="currentPage==pageNo?false:getPage(pageNo)"><a href="javascript:void(0);">{{pageNo}}</a></li>
+                  <li *ngIf="totalPages>1" [ngClass]="{'waves-effect':currentPage!=pageNo+1,'active':currentPage==pageNo+1}" (click)="currentPage==pageNo+1?false:getPage(pageNo+1)"><a href="javascript:void(0);">{{pageNo+1}}</a></li>
+                  <li *ngIf="totalPages>2" [ngClass]="{'waves-effect':currentPage!=pageNo+2,'active':currentPage==pageNo+2}" (click)="currentPage==pageNo+2?false:getPage(pageNo+2)"><a href="javascript:void(0);">{{pageNo+2}}</a></li>
+                  <li *ngIf="totalPages>3" [ngClass]="{'waves-effect':currentPage!=pageNo+3,'active':currentPage==pageNo+3}" (click)="currentPage==pageNo+3?false:getPage(pageNo+3)"><a href="javascript:void(0);">{{pageNo+3}}</a></li>
+                  <li [ngClass]="{'waves-effect':totalPages>pageNo+3,'disabled':pageNo+3>=totalPages}" (click)="pageNo+3>=totalPages?false:getPage('next')"><a href="javascript:void(0);"><i class="mdi-navigation-chevron-right"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end container-->
+</section>

@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+.not-allowed{
+    cursor: not-allowed !important;
+}
+
+input:-webkit-autofill ~ label {
+    transform: translateY(-140%);
+    font-size: 0.8rem;
+}
+
+#content{
+    height: 79.2vh;
+    overflow: auto;
+}
+ 

@@ -1,0 +1,13 @@
+td.pt{
+    width: 20%;
+}
+
+td.pt>div{
+    margin: 10px 0;
+}
+
+td.pt>div>span{
+    background: #00bcd4;
+    color: #fff;
+    padding: 5px 10px 5px 10px;
+}
